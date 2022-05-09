@@ -7,3 +7,6 @@ class test_title(models.Model):
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/")  # ссылка на фотографию к тесту
     time_create = models.DateTimeField(auto_now_add=True)  # время создания теста
     is_published = models.BooleanField(default=True)  # поле опубликовано
+
+    def __str__(self):
+        return self.title
