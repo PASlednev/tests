@@ -3,11 +3,17 @@
 {% block content %}
 <ul class="list-articles">
 	{% for p in posts %}
+
+	{% if p.photo %}
+	<p><img class="img-article-left thumb" src="{{p.photo.url}}"></p>
+	{% endif %}
+
 	<li><h2>{{p.title}}</h2>
 		{% autoescape on %}
+		{{ p.description }}
 		{% endautoescape %}
 		<div class="clear"></div>
-		<p class="link-read-post"><a href="#">Перейти к группе тестов</a></p>
+		<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Перейти к группе тестов</a></p>
 	</li>
 	{% endfor %}
 </ul>

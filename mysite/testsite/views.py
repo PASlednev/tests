@@ -1,33 +1,45 @@
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from .models import *
 
-menu = ['О сайте', 'Добавить тест', 'Обратная связь', 'Войти']
+menu = [{'title': "О сайте", 'url_name': 'about'},
+        {'title': "Добавить тест", 'url_name': 'add_page'},
+        {'title': "Обратная связь", 'url_name': 'contact'},
+        {'title': "Войти", 'url_name': 'login'},
+        ]
 
 
 def index(request):
     posts = test_title.objects.all()
-    return render(request, 'testsite/index.html', {'posts': posts, 'menu': menu, 'title': 'Главная страница'})
+    context = {
+        'posts': posts,
+        'menu': menu,
+        'title': 'Главная страница'
+    }
+
+    return render(request, 'testsite/index.html', context=context)
 
 
 def about(request):
     return render(request, 'testsite/about.html', {'menu': menu, 'title': 'О сайте'})
 
 
-def categories(request, catid):
-    if request.POST:
-        print(request.POST)
-
-    return HttpResponse(f'<h1>Категории тестов</h1><p>{catid}</p>')
+def addpage(request):
+    return HttpResponse("Добавление статьи")
 
 
-def archive(request, year):
-    if int(year) > 2022:
-        return redirect('home', permanent=False)
+def contact(request):
+    return HttpResponse("Обратная связь")
 
-    return HttpResponse(f'<h1>Архив по годам</h1><p>{year}</p>')
+
+def login(request):
+    return HttpResponse('Авторизация')
 
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
+
+
+def show_group_test(request, group_test_id):
+    return HttpResponse(f"Отображение теста с id = {group_test_id}")
