@@ -4,14 +4,14 @@ from django.shortcuts import render
 from .models import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
-        {'title': "Добавить тест", 'url_name': 'add_page'},
+        {'title': "Все тесты", 'url_name': 'all_tests'},
         {'title': "Обратная связь", 'url_name': 'contact'},
         {'title': "Войти", 'url_name': 'login'},
         ]
 
 
 def index(request):
-    posts = test_title.objects.all()
+    posts = Test_group.objects.all()
     context = {
         'posts': posts,
         'menu': menu,
@@ -25,8 +25,8 @@ def about(request):
     return render(request, 'testsite/about.html', {'menu': menu, 'title': 'О сайте'})
 
 
-def addpage(request):
-    return HttpResponse("Добавление теста")
+def all_tests(request):
+    return HttpResponse("Все тесты")
 
 
 def contact(request):
