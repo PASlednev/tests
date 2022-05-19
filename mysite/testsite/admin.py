@@ -15,9 +15,18 @@ class Test_titleAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')
 
 
+class AnswerInline(admin.TabularInline):
+    model = Answer
+    extra = 3
+    list_display = ('id', 'answer_text')
+    list_display_links = ('id', 'answer_text')
+
+
 class QuestionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'question_text')
-    list_display_links = ('id', 'question_text')
+    fieldsets = [
+        (None, {'fields': ['question_text']}),
+    ]
+    inlines = [AnswerInline]
 
 
 admin.site.register(Test_group, Test_groupAdmin)
