@@ -15,7 +15,7 @@ class Test_titleAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')
 
 
-class AnswerInline(admin.TabularInline):
+class AnswerAdmin(admin.ModelAdmin):
     model = Answer
     extra = 3
     list_display = ('id', 'answer_text')
@@ -23,12 +23,11 @@ class AnswerInline(admin.TabularInline):
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['question_text']}),
-    ]
-    inlines = [AnswerInline]
+    list_display = ('id', 'question_text')
+    list_display_links = ('id', 'question_text')
 
 
 admin.site.register(Test_group, Test_groupAdmin)
 admin.site.register(Test_title, Test_titleAdmin)
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(Answer, AnswerAdmin)
