@@ -1,0 +1,12 @@
+{% extends 'testsite/base.html' %}
+
+{% block content %}
+<ul class="list-articles">
+    {% for item in test_name %}
+    <li>
+        <div class="article-panel">
+            <p class="first">Тест: {{item.title_test}}</p>
+        </div>
+        {% endfor %}
+</ul>
+{% endblock %}

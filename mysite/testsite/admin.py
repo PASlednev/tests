@@ -11,8 +11,8 @@ class Test_groupAdmin(admin.ModelAdmin):
 
 
 class Test_titleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
-    list_display_links = ('id', 'title')
+    list_display = ('id', 'title_test')
+    list_display_links = ('id', 'title_test')
 
 
 class AnswerAdmin(admin.ModelAdmin):
