@@ -2,10 +2,10 @@
 
 {% block content %}
 <ul class="list-articles">
-    {% for item in test_name %}
+    {% for item in tests %}
     <li>
         <div class="article-panel">
-            <p class="first">Тест: {{item.title_test}}</p>
+            <p class="first">Тест: {{item.title}}</p>
         </div>
         {% endfor %}
 </ul>

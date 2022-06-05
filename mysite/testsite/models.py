@@ -34,8 +34,8 @@ class Test_title(models.Model):
     title_test = models.CharField(max_length=300, verbose_name='Название теста')
     questions_count = models.IntegerField(verbose_name='Количество вопросов', default=True)
     is_published = models.BooleanField(default=True, verbose_name='Опубликовано')  # Тест опубликован
-    test_group = models.ForeignKey('Test_group', on_delete=models.CASCADE, verbose_name='Название группы тестов',
-                                   null=True)
+    tests = models.ForeignKey('Test_group', on_delete=models.CASCADE, verbose_name='Название группы тестов',
+                              null=True)
 
     def __str__(self):
         return self.title_test
@@ -46,7 +46,7 @@ class Test_title(models.Model):
         ordering = ['title_test']
 
     def get_absolute_url(self):
-        return reverse('test', kwargs={'test_id': self.pk})
+        return reverse('tests', kwargs={'test_id': self.pk})
 
 
 class Test_group(models.Model):
@@ -67,4 +67,4 @@ class Test_group(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('group_tests', kwargs={'group_title_id': self.pk})
+        return reverse('tests', kwargs={'test_id': self.pk})
