@@ -10,5 +10,6 @@ urlpatterns = [
     path('contact/', contact, name='contact'),
     path('login/', login, name='login'),
     path('tests/<int:test_id>/', show_tests, name='tests'),
+    # path('tests/test_name/<int:test_name_id>', test_name, name='test_name')
     # path('tests/<int:group_title_id>/', ShowGroup.as_view(), name='group_tests')
 ]

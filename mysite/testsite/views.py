@@ -62,7 +62,7 @@ def pageNotFound(request, exception):
 
 def show_tests(request, test_id):
     tests = Test_title.objects.filter(tests_id=test_id)  # исправить
-    test_title = Test_title.objects.get(pk=test_id)  # исправить
+    test_title = Test_title.objects.get(pk=test_id)  # исправить переход
     context = {
         'tests': tests,
         'menu': menu,
@@ -70,6 +70,10 @@ def show_tests(request, test_id):
     }
 
     return render(request, 'testsite/show_test.html', context=context)
+
+
+def show_questions(request, test_name_id):
+    pass
 
 # class ShowTest(ListView):
 #     model = Test_title
