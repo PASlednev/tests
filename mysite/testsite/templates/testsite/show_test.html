@@ -4,9 +4,11 @@
 <ul class="list-articles">
     {% for item in tests %}
     <li>
-        <div class="article-panel">
-            <p class="first">Тест: {{item.title}}</p>
-        </div>
-        {% endfor %}
+        <h1><p class="first">{{item.title_test}}</p></h1>
+        <p class="first">Количество вопросов в тесте: {{item.questions_count}}</p>
+        <div class="clear"></div>
+        <p class="link-read-post"><a href="{#}">Открыть тест</a></p>
+    </li>
+    {% endfor %}
 </ul>
 {% endblock %}
