@@ -16,7 +16,7 @@
 		{{ p.description }}
 		{% endautoescape %}
 		<div class="clear"></div>
-		<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Перейти к тестам</a></p>
+		<p class="link-read-post"><a href="{% url 'tests' p.pk %}">Перейти к тестам</a></p>
 	</li>
 	{% endfor %}
 </ul>

@@ -32,27 +32,6 @@
 
             <table border=0 cellpadding="0" cellspacing="0" class="table-content">
                 <tr>
-                    <!-- Sidebar слева -->
-                    <!--                    <td class="left-chapters" valign="top">-->
-                    <!--                        <ul id="leftchapters">-->
-                    <!--                            {% if test_group_selected == 0 %}-->
-                    <!--                            <li class="selected">Группы тестов</li>-->
-                    <!--                            {% else %}-->
-                    <!--                            <li><a href="{% url 'home' %}">Группы тестов</a></li>-->
-                    <!--                            {% endif %}-->
-
-                    <!--                            {% for c in group_test %}-->
-                    <!--                            {% if c.pk == title_selected %}-->
-                    <!--                            <li class="selected">{{c.name}}</li>-->
-                    <!--                            {% else %}-->
-                    <!--                            <li><a href="{{ c.get_absolute_url }}">{{c.name}}</a></li>-->
-                    <!--                            {% endif %}-->
-                    <!--                            {% endfor %}-->
-                    <!--                            <li class="share">-->
-                    <!--                            </li>-->
-                    <!--                        </ul>-->
-                    <!--                    </td>-->
-                    <!-- Конец Sidebar'а -->
                     <td class="content" valign="top">
                         <!-- Хлебные крошки -->
                         {% block breadcrumbs %}

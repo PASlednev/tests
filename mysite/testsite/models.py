@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class Answer(models.Model):
@@ -29,6 +28,9 @@ class Question(models.Model):
         verbose_name_plural = 'Поля вопроса'
         ordering = ['id']
 
+    # def get_absolute_url(self):
+    #     return reverse('questions', kwargs={'question_id': self.pk})
+
 
 class Test_title(models.Model):
     title_test = models.CharField(max_length=300, verbose_name='Название теста')
@@ -45,8 +47,8 @@ class Test_title(models.Model):
         verbose_name_plural = 'Тесты по категориям'
         ordering = ['title_test']
 
-    def get_absolute_url(self):
-        return reverse('tests', kwargs={'test_id': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('tests', kwargs={'test_id': self.pk})
 
 
 class Test_group(models.Model):
@@ -56,7 +58,6 @@ class Test_group(models.Model):
                               blank=True)  # ссылка на фотографию к тесту
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')  # время создания теста
 
-
     def __str__(self):
         return self.title
 
@@ -65,6 +66,5 @@ class Test_group(models.Model):
         verbose_name_plural = 'Группы по категориям'
         ordering = ['time_create', 'title']
 
-
-    def get_absolute_url(self):
-        return reverse('tests', kwargs={'test_id': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('test_group', kwargs={'test_group_id': self.pk})

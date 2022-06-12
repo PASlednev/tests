@@ -27,11 +27,9 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
 
 def index(request):
     group_test = Test_group.objects.all()
-    test_title = Test_title.objects.all()
 
     context = {
         'group_test': group_test,
-        'test_title': test_title,
         'menu': menu,
         'title': 'Главная страница',
         'tests_selected': 0,
@@ -60,9 +58,10 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-def show_tests(request, test_id):
-    tests = Test_title.objects.filter(tests_id=test_id)  # исправить
-    test_title = Test_title.objects.get(pk=test_id)  # исправить переход
+def show_tests(request, test_group_id):
+    tests = Test_title.objects.filter(tests_id=test_group_id)  # исправить
+    test_title = Test_title.objects.get(pk=test_group_id)  # исправить переход
+
     context = {
         'tests': tests,
         'menu': menu,
@@ -71,9 +70,17 @@ def show_tests(request, test_id):
 
     return render(request, 'testsite/show_test.html', context=context)
 
+# def show_questions(request, questions):
+#     questions = Question.objects.filter(test_title_id=question_id)
+#     test_title = Test_title.objects.get(pk=question_id)
+#     context = {
+#         'questions': questions,
+#         'menu': menu,
+#         'title': test_title,
+#     }
+#
+#     return render(request, 'testsite/show_questions.html', context=context)
 
-def show_questions(request, test_name_id):
-    pass
 
 # class ShowTest(ListView):
 #     model = Test_title

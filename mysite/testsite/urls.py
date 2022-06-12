@@ -9,7 +9,8 @@ urlpatterns = [
     path('all_tests/', all_tests, name='all_tests'),
     path('contact/', contact, name='contact'),
     path('login/', login, name='login'),
-    path('tests/<int:test_id>/', show_tests, name='tests'),
-    # path('tests/test_name/<int:test_name_id>', test_name, name='test_name')
+    # path('test_group/', show_tests, name='tests'),
+    path('test_group/<int:test_group_id>/', show_tests, name='tests'),
+    # path('tests/<int:test_id>/questions_in_test/', show_questions, name='questions_in_test')
     # path('tests/<int:group_title_id>/', ShowGroup.as_view(), name='group_tests')
 ]
