@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
-from forms import QuestionsForm
+from .forms import QuestionsForm
 from .models import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
@@ -24,6 +24,18 @@ def index(request):
     return render(request, 'testsite/index.html', context=context)
 
 
+def show_tests(request, test_group_id):
+    tests = Test_title.objects.filter(tests_id=test_group_id)  # исправить
+    test_title = Test_title.objects.get(pk=test_group_id)  # исправить переход
+
+    context = {
+        'tests': tests,
+        'menu': menu,
+        'title': test_title,
+    }
+    return render(request, 'testsite/show_test.html', context=context)
+
+
 def about(request):
     return render(request, 'testsite/about.html', {'menu': menu, 'title': 'О сайте'})
 
@@ -44,13 +56,10 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-def show_tests(request):
+def show_questions(request, questions_id):
+    questions = Question.objects.filter(test_title_id=questions_id)
     if request.method == 'POST':
         pass
     else:
         form = QuestionsForm()
-    return render(request, 'testsite/show_test.html', {'form': form})
-
-# def show_questions(request, questions_id):
-#     questions = Question.objects.filter(test_title_id=questions_id)
-#     one_question = Question.objects.get(pk=id)
+    return render(request, 'testsite/show_test.html', {'form': form, 'questions': questions})
