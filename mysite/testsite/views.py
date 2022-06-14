@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 
+from forms import QuestionsForm
 from .models import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
@@ -8,21 +9,6 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
         {'title': "Войти", 'url_name': 'login'},
         ]
-
-
-# class ShowGroup(ListView):
-#     model = Test_group
-#     template_name = 'testsite/index.html'
-#     context_object_name = 'test'
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['menu'] = [{'title': "О сайте", 'url_name': 'about'},
-#                            {'title': "Все тесты", 'url_name': 'all_tests'},
-#                            {'title': "Обратная связь", 'url_name': 'contact'},
-#                            {'title': "Войти", 'url_name': 'login'},
-#                            ]
-#         return context
 
 
 def index(request):
@@ -58,59 +44,13 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-def show_tests(request, test_group_id):
-    tests = Test_title.objects.filter(tests_id=test_group_id)  # исправить
-    test_title = Test_title.objects.get(pk=test_group_id)  # исправить переход
+def show_tests(request):
+    if request.method == 'POST':
+        pass
+    else:
+        form = QuestionsForm()
+    return render(request, 'testsite/show_test.html', {'form': form})
 
-    context = {
-        'tests': tests,
-        'menu': menu,
-        'title': test_title,
-    }
-
-    return render(request, 'testsite/show_test.html', context=context)
-
-# def show_questions(request, questions):
-#     questions = Question.objects.filter(test_title_id=question_id)
-#     test_title = Test_title.objects.get(pk=question_id)
-#     context = {
-#         'questions': questions,
-#         'menu': menu,
-#         'title': test_title,
-#     }
-#
-#     return render(request, 'testsite/show_questions.html', context=context)
-
-
-# class ShowTest(ListView):
-#     model = Test_title
-#     template_name = 'testsite/show_test.html'
-#     context_object_name = 'test_name'
-#     allow_empty = False
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = Test_title.objects.get(pk=self.kwargs['test_id'])
-#         context['menu'] = [{'title': "О сайте", 'url_name': 'about'},
-#                            {'title': "Все тесты", 'url_name': 'all_tests'},
-#                            {'title': "Обратная связь", 'url_name': 'contact'},
-#                            {'title': "Войти", 'url_name': 'login'},
-#                            ]
-#         return context
-#
-#     def get_queryset(self):
-#         return Test_title.objects.filter(id=self.kwargs['test_id'])
-
-# def show_group_test(request, group_test_id):
-#     group_test = Test_group.objects.filter(group_test_id=group_test_id)
-#     test_title = Test_title.objects.all()
-#
-#     context = {
-#         'group_test': group_test,
-#         'test_title': test_title,
-#         'menu': menu,
-#         'title': 'Отображение по рубрикам',
-#         'group_test_selected': group_test_id,
-#     }
-#
-#     return render(request, 'testsite/index.html', context=context)
+# def show_questions(request, questions_id):
+#     questions = Question.objects.filter(test_title_id=questions_id)
+#     one_question = Question.objects.get(pk=id)

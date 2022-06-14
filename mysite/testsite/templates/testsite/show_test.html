@@ -1,14 +1,8 @@
 {% extends 'testsite/base.html' %}
 
 {% block content %}
-<ul class="list-articles">
-    {% for item in tests %}
-    <li>
-        <h1><p class="first">{{item.title_test}}</p></h1>
-        <p class="first">Количество вопросов в тесте: {{item.questions_count}}</p>
-        <div class="clear"></div>
-        <p class="link-read-post"><a href="{% url 'tests' item.pk %}">Открыть тест</a></p>
-    </li>
-    {% endfor %}
-</ul>
-{% endblock %}
+<form %} action="{% url 'show_test' %}"
+      csrf_token form.as_p method="post"
+      {% {{ }}
+
+      {% endblock %}
