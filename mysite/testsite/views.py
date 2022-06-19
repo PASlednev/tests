@@ -56,10 +56,11 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-def show_questions(request, questions_id):
+def show_questions(request, test_group_id, questions_id):
+    tests = Test_title.objects.filter(tests_id=test_group_id)
     questions = Question.objects.filter(test_title_id=questions_id)
     if request.method == 'POST':
         pass
     else:
         form = QuestionsForm()
-    return render(request, 'testsite/show_test.html', {'form': form, 'questions': questions})
+    return render(request, 'testsite/show_questions.html', {'form': form, 'questions': questions, 'tests': tests})
