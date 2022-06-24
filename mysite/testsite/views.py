@@ -1,5 +1,5 @@
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .forms import QuestionsForm
 from .models import *
@@ -59,8 +59,13 @@ def pageNotFound(request, exception):
 def show_questions(request, test_group_id, questions_id):
     tests = Test_title.objects.filter(tests_id=test_group_id)
     questions = Question.objects.filter(test_title_id=questions_id)
+    answers = Answer.objects.filter(question_id=questions_id)
     if request.method == 'POST':
-        pass
+        form = QuestionsForm(request.POST)
+        if form.is_valid():
+            question = Question.objects.create(**form.cleaned_data)
+            return redirect(question)
     else:
         form = QuestionsForm()
-    return render(request, 'testsite/show_questions.html', {'form': form, 'questions': questions, 'tests': tests})
+    return render(request, 'testsite/show_questions.html',
+                  {'form': form, 'questions': questions, 'tests': tests, 'answers': answers})

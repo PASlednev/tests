@@ -1,18 +1,26 @@
 {% extends 'testsite/base.html' %}
 
 {% block content %}
+{% csrf_token %}
+
+{{ form.as_p }}
 <ul class="list-articles">
     {% for item in questions %}
+    {% for item in answers %}
+    <p class="first">{{item.answer_text}}</p>
+    {% endfor %}
     <li>
-        <h1><p class="first">{{item.title_test}}</p></h1>
-        <p class="first">Вопрос: {{item.question_text}}</p>
-        <div class="clear"></div>
-        <p class="link-read-post"><a href="#">атвет</a></p>
+        <form action="" method="post">
+            <h1>
+                <p class="first">{{item.title_test}}</p>
+            </h1>
+            <p class="first">Вопрос: {{item.question_text}}</p>
+            <div class="clear"></div>
+            <p class="link-read-post"><a href="#">атвет</a></p>
+        </form>
     </li>
     {% endfor %}
 </ul>
-{% csrf_token %}
-{{ form.as_p }}
 
 {% endblock %}
 
