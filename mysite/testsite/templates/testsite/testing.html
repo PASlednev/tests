@@ -1,0 +1,12 @@
+{% extends 'testsite/base.html' %}
+
+{% block content %}
+{% csrf_token %}
+
+{{ form.as_p }}
+
+{% for name in page_obj.object_list %}
+{{ name }}
+{% endfor %}
+
+{% endblock %}

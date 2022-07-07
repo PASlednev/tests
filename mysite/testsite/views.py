@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 
@@ -25,8 +26,8 @@ def index(request):
 
 
 def show_tests(request, test_group_id):
-    tests = Test_title.objects.filter(tests_id=test_group_id)  # исправить
-    test_title = Test_title.objects.get(pk=test_group_id)  # исправить переход
+    tests = Test_title.objects.filter(tests_id=test_group_id)
+    test_title = Test_title.objects.get(pk=test_group_id)
 
     context = {
         'tests': tests,
@@ -56,10 +57,22 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-def show_questions(request, test_group_id, questions_id):
+def show_questions(request, test_group_id, test_id):
     tests = Test_title.objects.filter(tests_id=test_group_id)
-    questions = Question.objects.filter(test_title_id=questions_id)
-    answers = Answer.objects.filter(question_id=questions_id)
+    ans = Answer.objects.all()
+    que = Question.objects.filter(id__in=ans)
+    ans1 = Answer.objects.all()
+    return render(request, 'testsite/show_questions.html',
+                  {'tests': tests, 'que': que, 'ans1': ans1})
+
+
+def show_testing(request):
+    ans = Answer.objects.all()
+    que = Question.objects.filter(id__in=ans)
+    ans1 = Answer.objects.all()
+    paginator = Paginator(que, 1)
+    page_num = request.GET.get('page', 1)
+    page_objects = paginator.get_page(page_num)
     if request.method == 'POST':
         form = QuestionsForm(request.POST)
         if form.is_valid():
@@ -67,5 +80,9 @@ def show_questions(request, test_group_id, questions_id):
             return redirect(question)
     else:
         form = QuestionsForm()
-    return render(request, 'testsite/show_questions.html',
-                  {'form': form, 'questions': questions, 'tests': tests, 'answers': answers})
+    context = {'page_obj': page_objects,
+               'form': form,
+               'que': que,
+               'ans1': ans1
+               }
+    return render(request, 'testsite/testing.html', context)
