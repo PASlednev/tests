@@ -68,11 +68,13 @@ def show_questions(request, test_group_id, test_id):
 
 def show_testing(request):
     ans = Answer.objects.all()
+    que1 = Question.objects.all()
     que = Question.objects.filter(id__in=ans)
     ans1 = Answer.objects.all()
-    paginator = Paginator(que, 1)
+    paginator = Paginator(que1, 1)
     page_num = request.GET.get('page', 1)
-    page_objects = paginator.get_page(page_num)
+    page_object = paginator.get_page(page_num)
+    print(page_object.__dict__)
     if request.method == 'POST':
         form = QuestionsForm(request.POST)
         if form.is_valid():
@@ -80,9 +82,10 @@ def show_testing(request):
             return redirect(question)
     else:
         form = QuestionsForm()
-    context = {'page_obj': page_objects,
+    context = {'page_obj': page_object,
                'form': form,
                'que': que,
-               'ans1': ans1
+               'ans1': ans1,
+               'que1': que1
                }
     return render(request, 'testsite/testing.html', context)

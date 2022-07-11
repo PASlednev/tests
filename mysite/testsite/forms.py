@@ -5,8 +5,8 @@ from .models import *
 
 class QuestionsForm(forms.ModelForm):
     class Meta:
-        model = Answer
-        fields = ['result', 'question']
+        model = Question
+        fields = ['question_text']
         widgets = {
-            'answer_text': forms.TextInput()
+            'question_text': forms.TextInput()
         }

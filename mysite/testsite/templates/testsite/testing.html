@@ -1,12 +1,31 @@
 {% extends 'testsite/base.html' %}
+{% load testsite_tags %}
 
 {% block content %}
-{% csrf_token %}
 
-{{ form.as_p }}
 
-{% for name in page_obj.object_list %}
-{{ name }}
-{% endfor %}
+<form action="/testing/" method="post">
+    {% csrf_token %}
+    <label for="{{ que1 }}">Поле вопроса:</label>
+    <input id="{{ que1 }}" name="{{ que1 }}" type="" value="{{ que1 }}">
+    <input type="submit" value="OK">
+</form>
+
+
+{{ page_obj.object_list.0 }}
+
+{% comment %}
+<nav aria-label="...">
+    <ul class="pagination">
+
+        {% for page in page_obj.paginator.page_range %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page }}">{{ que1|index:forloop.counter0 }}</a>
+        </li>
+
+        {% endfor %}
+    </ul>
+</nav>
+{% endcomment %}
 
 {% endblock %}
