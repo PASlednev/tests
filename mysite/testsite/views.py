@@ -74,7 +74,7 @@ def show_testing(request):
     paginator = Paginator(que1, 1)
     page_num = request.GET.get('page', 1)
     page_object = paginator.get_page(page_num)
-    print(page_object.__dict__)
+    print(page_object.object_list)
     if request.method == 'POST':
         form = QuestionsForm(request.POST)
         if form.is_valid():
@@ -89,3 +89,21 @@ def show_testing(request):
                'que1': que1
                }
     return render(request, 'testsite/testing.html', context)
+
+# def show_answer_in_testing(request):
+#     ans = Answer.objects.all()
+#     paginator = Paginator(ans, 1)
+#     page_num = request.GET.get('page', 1)
+#     page_object = paginator.get_page(page_num)
+#     if request.method == 'POST':
+#         form = QuestionsForm(request.POST)
+#         if form.is_valid():
+#             question = Question.objects.create(**form.cleaned_data)
+#             return redirect(question)
+#     else:
+#         form = QuestionsForm()
+#     context = {'page_obj': page_object,
+#                'form': form,
+#                'ans': ans,
+#                }
+#     return render(request, 'testsite/testing.html', context)
