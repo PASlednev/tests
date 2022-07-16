@@ -4,13 +4,18 @@
 {% block content %}
 
 
-<form action="/testing/" method="post">
-    {% csrf_token %}
-    <label for="{{ que1 }}">Поле вопроса:</label>
-    <input id="{{ que1 }}" name="{{ que1 }}" type="" value="{{ que1 }}">
-    <input type="submit" value="OK">
-</form>
+<!--<form action="/testing/" method="post">-->
+<!--    {% csrf_token %}-->
+<!--    <label for="{{ que1 }}">Поле вопроса:</label>-->
+<!--    <input id="{{ que1 }}" name="{{ que1 }}" type="" value="{{ que1 }}">-->
+<!--    <input type="submit" value="OK">-->
+<!--</form>-->
 
+{% for item in ans %}
+{% if item.ans.question__pk == item.ans.question_id %}
+{{ item.answer_text }}
+{% endif %}
+{% endfor %}
 
 {{ page_obj.object_list.0 }}
 
@@ -35,8 +40,6 @@
         {% endif %}
     </span>
 </div>
-
-{{ ans }}
 
 
 {% comment %}

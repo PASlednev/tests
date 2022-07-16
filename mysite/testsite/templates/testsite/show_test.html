@@ -7,7 +7,7 @@
         <h1><p class="first">{{item.title_test}}</p></h1>
         <p class="first">Количество вопросов в тесте: {{item.questions_count}}</p>
         <div class="clear"></div>
-        <p class="link-read-post"><a href="{% url 'show_testing' %}">Открыть
+        <p class="link-read-post"><a href="{% url 'show_test' test_group_id=item.pk test_id=item.pk %}">Открыть
             тест</a></p>
     </li>
     {% endfor %}

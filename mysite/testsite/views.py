@@ -57,24 +57,22 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-def show_questions(request, test_group_id, test_id):
-    tests = Test_title.objects.filter(tests_id=test_group_id)
-    ans = Answer.objects.all()
-    que = Question.objects.filter(id__in=ans)
-    ans1 = Answer.objects.all()
-    return render(request, 'testsite/show_questions.html',
-                  {'tests': tests, 'que': que, 'ans1': ans1})
+# def show_questions(request, test_group_id, test_id):
+#     tests = Test_title.objects.filter(tests_id=test_group_id)
+#     ans = Answer.objects.all()
+#     que = Question.objects.filter(id__in=ans)
+#     ans1 = Answer.objects.all()
+#     return render(request, 'testsite/show_questions.html',
+#                   {'tests': tests, 'que': que, 'ans1': ans1})
 
 
-def show_testing(request):
-    ans = Answer.objects.all()
-    que1 = Question.objects.all()
-    que = Question.objects.filter(id__in=ans)
-    ans1 = Answer.objects.all()
-    paginator = Paginator(que1, 1)
+def show_testing(request, test_group_id, test_id):
+    que = Question.objects.filter(test_title__pk=test_group_id)
+    paginator = Paginator(que, 1)
     page_num = request.GET.get('page', 1)
     page_object = paginator.get_page(page_num)
-    print(page_object.object_list)
+    que_id = page_object.object_list[0].id  # дописать проверку на наличие нулевого элемента
+    ans = Answer.objects.filter(question__pk=que_id).values('answer_text', 'question__id').order_by('question_id')
     if request.method == 'POST':
         form = QuestionsForm(request.POST)
         if form.is_valid():
@@ -84,26 +82,7 @@ def show_testing(request):
         form = QuestionsForm()
     context = {'page_obj': page_object,
                'form': form,
-               'que': que,
-               'ans1': ans1,
-               'que1': que1
+               'que1': que,
+               'ans': ans
                }
-    return render(request, 'testsite/testing.html', context)
-
-# def show_answer_in_testing(request):
-#     ans = Answer.objects.all()
-#     paginator = Paginator(ans, 1)
-#     page_num = request.GET.get('page', 1)
-#     page_object = paginator.get_page(page_num)
-#     if request.method == 'POST':
-#         form = QuestionsForm(request.POST)
-#         if form.is_valid():
-#             question = Question.objects.create(**form.cleaned_data)
-#             return redirect(question)
-#     else:
-#         form = QuestionsForm()
-#     context = {'page_obj': page_object,
-#                'form': form,
-#                'ans': ans,
-#                }
-#     return render(request, 'testsite/testing.html', context)
+    return render(request, 'testsite/show_questions.html', context)
