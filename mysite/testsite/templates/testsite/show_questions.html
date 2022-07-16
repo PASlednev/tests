@@ -11,8 +11,14 @@
 <!--    <input type="submit" value="OK">-->
 <!--</form>-->
 
+
 {{ page_obj.object_list.0 }}
 
+{% for item in ans %}
+{% if item.ans.question__pk == item.ans.question_id %}
+{{ item.answer_text }}
+{% endif %}
+{% endfor %}
 
 <div class="pagination">
     <span class="step-links">
@@ -31,7 +37,6 @@
         {% endif %}
     </span>
 </div>
-
 
 {% comment %}
 <nav aria-label="...">
