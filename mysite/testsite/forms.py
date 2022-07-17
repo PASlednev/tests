@@ -8,5 +8,5 @@ class QuestionsForm(forms.ModelForm):
         model = Question
         fields = ['question_text']
         widgets = {
-            'question_text': forms.TextInput()
+            'question_text': forms.Textarea()
         }

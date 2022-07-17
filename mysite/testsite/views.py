@@ -82,7 +82,7 @@ def show_testing(request, test_group_id, test_id):
         form = QuestionsForm()
     context = {'page_obj': page_object,
                'form': form,
-               'que1': que,
+               'que': que,
                'ans': ans
                }
     return render(request, 'testsite/show_questions.html', context)
