@@ -1,14 +1,16 @@
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 
-from .forms import QuestionsForm
+from .forms import QuestionsForm, UserRegisterForm
 from .models import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Все тесты", 'url_name': 'all_tests'},
         {'title': "Обратная связь", 'url_name': 'contact'},
         {'title': "Войти", 'url_name': 'login'},
+        {'title': "Зарегистрироваться", 'url_name': 'register'}
         ]
 
 
@@ -50,7 +52,21 @@ def contact(request):
 
 
 def login(request):
-    return HttpResponse('Авторизация')
+    return render(request, 'testsite/login.html')
+
+
+def register(request):
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Вы успешно зарегистрировались')
+            return redirect('login')
+        else:
+            messages.error(request, 'Ошибка регистрации')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'testsite/register.html', {"form": form})
 
 
 def pageNotFound(request, exception):
