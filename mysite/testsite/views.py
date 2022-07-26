@@ -1,9 +1,10 @@
 from django.contrib import messages
+from django.contrib.auth import login, logout
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
 
-from .forms import QuestionsForm, UserRegisterForm
+from .forms import QuestionsForm, UserRegisterForm, UserLoginForm
 from .models import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
@@ -51,8 +52,21 @@ def contact(request):
     return HttpResponse("Обратная связь")
 
 
-def login(request):
-    return render(request, 'testsite/login.html')
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm
+    return render(request, 'testsite/login.html', {'form': form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
 
 def register(request):

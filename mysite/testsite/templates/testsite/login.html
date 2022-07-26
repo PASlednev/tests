@@ -1,12 +1,10 @@
 {% extends 'testsite/base.html' %}
 {% block content %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Авторизация</h1>
-</body>
-</html>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary btn-block" type="submit">
+        Login
+    </button>
+</form>
 {% endblock %}
