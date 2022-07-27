@@ -18,20 +18,18 @@
                         <div class="logo"></div>
                     </a></li>
                     {% for m in menu %}
-                    {% if not forloop.last %}
                     <li><a href="{% url m.url_name %}">{{m.title}}</a></li>
-                    {% else %}
-                    <li class="last"><a href="{% url m.url_name %}">{{m.title}}</a></li>
-                    {% endif %}
                     {% endfor %}
+                    {% if request.user.is_authenticated %}
+                    <li class="last"> Добро пожаловать, {{ user.username }} | <a href="{% url 'logout' %}">Выход</a>
+                    </li>
+                    {% else %}
+                    <li class="last"><a href="{% url 'register' %}">Регистрация</a> | <a
+                            href="{% url 'login' %}">Войти</a></li>
+                    {% endif %}
                 </ul>
                 <div class="clear"></div>
             </div>
-            {% if request.user.is_authenticated %}
-            Добро пожаловать, {{ user.username }} | <a href="{% url 'logout' %}">Выход</a>
-            {% else %}
-            <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a>
-            {% endif %}
             {% endblock mainmenu %}
 
 

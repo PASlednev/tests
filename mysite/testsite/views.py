@@ -10,8 +10,6 @@ from .models import *
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Все тесты", 'url_name': 'all_tests'},
         {'title': "Обратная связь", 'url_name': 'contact'},
-        {'title': "Войти", 'url_name': 'login'},
-        {'title': "Зарегистрироваться", 'url_name': 'register'}
         ]
 
 
