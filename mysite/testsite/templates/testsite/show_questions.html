@@ -3,17 +3,14 @@
 
 {% block content %}
 
+{{ page_obj.object_list.0 }}
 
-<form action="" method="post">
+<form action="/test_group/{{ test_group_id }}/{{ test_id }}" method="post">
     {% csrf_token %}
-    {{ page_obj.object_list.0 }}
-
     {% for item in ans %}
-    {% if item.ans.question__pk == item.ans.question_id %}
     <p>{{ item.answer_text }}</p>
     <label for="{{ item }}"></label>
     <input id="{{ item }}" name="item" type="radio" value="{{ ans }}">
-    {% endif %}
     {% endfor %}
     <p><input type="submit" value="Записать ответ"></p>
 </form>
