@@ -24,8 +24,7 @@ class UserRegisterForm(UserCreationForm):
 
 
 class AnswersForm(ModelForm):
-    answer_text = forms.ChoiceField(choices=[('F', 'ans1[0]'), ('S', 'ans1[1]'), ('T', 'ans1[2]')],
-                                    widget=forms.RadioSelect())
+    answer_text = forms.ChoiceField(choices=[], widget=forms.RadioSelect())
 
     class Meta:
         model = Answer
