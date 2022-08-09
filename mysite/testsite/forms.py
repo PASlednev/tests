@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-
 from .models import *
 
 
@@ -23,10 +22,10 @@ class UserRegisterForm(UserCreationForm):
         fields = ('username', 'email', 'password1', 'password2')
 
 
+
 class AnswersForm(ModelForm):
+    answer_text = forms.ChoiceField(choices=[('F', 'ans1[0]'), ('S', 'ans1[1]'), ('T', 'ans1[2]')], widget=forms.RadioSelect())
+
     class Meta:
         model = Answer
-        fields = ['answer_text', 'result']
-        widgets = {
-            'answer_text': forms.Textarea(),
-        }
+        fields = ['answer_text']
