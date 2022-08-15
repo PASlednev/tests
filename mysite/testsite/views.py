@@ -150,7 +150,7 @@ def show_testing(request, test_group_id, test_id):
             if page_object.has_next():
                 return redirect(f'/test_group/{test_group_id}/{test_id}?page={page_object.next_page_number()}')
             else:
-                return redirect('home') # написать редирект на страницу с выводом результата теста
+                return redirect('home')  # написать редирект на страницу с выводом результата теста
     else:
         form = AnswersForm()
         form.fields['answer_text'].choices = [(ans1[0].id, ans1[0]), (ans1[1].id, ans1[1]), (ans1[2].id, ans1[2])]
