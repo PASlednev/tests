@@ -167,6 +167,7 @@ def show_testing(request, test_group_id, test_id):
                }
     return render(request, 'testsite/show_questions.html', context)
 
+
 def result_test(request):
     pass
 
