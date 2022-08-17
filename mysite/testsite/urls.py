@@ -12,5 +12,6 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('test_group/<int:test_group_id>/', show_tests, name='tests'),
     path('test_group/<int:test_group_id>/<int:test_id>', show_testing, name='show_test'),
+    path('result/', result_test, name='test_result'),
     # path('testing/', show_testing, name='show_testing')
 ]
