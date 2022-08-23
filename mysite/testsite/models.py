@@ -5,7 +5,6 @@ class Answer(models.Model):
     answer_text = models.CharField(max_length=250, verbose_name='Ответ')
     result = models.BooleanField(default=False, verbose_name='Правильный')
     question = models.ForeignKey('Question', on_delete=models.CASCADE, null=True, verbose_name='Вопрос')
-    # добавить связь на модель User, чтобы понимать кто передал ответ.
 
     def __str__(self):
         return self.answer_text

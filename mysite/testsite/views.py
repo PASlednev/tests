@@ -85,83 +85,27 @@ def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
 
 
-# def show_questions(request, test_group_id, test_id):
-#     tests = Test_title.objects.filter(tests_id=test_group_id)
-#     ans = Answer.objects.all()
-#     que = Question.objects.filter(id__in=ans)
-#     ans1 = Answer.objects.all()
-#     return render(request, 'testsite/show_questions.html',
-#                   {'tests': tests, 'que': que, 'ans1': ans1})
-
-# class Show_testing(TemplateView):
-#     template_name = 'testsite/show_questions.html'
-#
-#     def testing(request, test_group_id, test_id):
-#         que = Question.objects.filter(test_title__pk=test_group_id)
-#         paginator = Paginator(que, 1)
-#         page_num = request.GET.get('page', 1)
-#         page_object = paginator.get_page(page_num)
-#         que_id = page_object.object_list[0].id # дописать проверку на наличие нулевого элемента
-#         ans = Answer.objects.filter(question__pk=que_id).values('answer_text', 'question__id').order_by('question_id')
-#         context = {'page_obj': page_object,
-#                    'que': que,
-#                    'ans': ans,
-#                    'test_group_id': test_group_id,
-#                    'test_id': test_id,
-#                    }
-#
-#     def get(self, request, *args, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         form = AnswersForm(request.POST)
-#         context.update({'form': form})
-#         return self.render_to_response(context)
-#
-#     def post(self, request, *args, **kwargs):
-#         form = AnswersForm(self.request.POST)
-#         if form.is_valid():
-#             form_update = form.save(commit=False)
-#             #form_update.related_user = request.user
-#             form_update.save()
-#             return HttpResponseRedirect(reverse_lazy('home'))
-#         else:
-#             print('NotValid')
-#             return self.form_invalid(form, **kwargs)
-#
-#
-#     def form_invalid(self, form, **kwargs):
-#         context = self.get_context_data()
-#         context.update({'formOne': form})
-#         return self.render_to_response(context)
-
-
 def show_testing(request, test_group_id, test_id):
     que = Question.objects.filter(test_title__pk=test_group_id)
     paginator = Paginator(que, 1)
     page_num = request.GET.get('page', 1)
     page_object = paginator.get_page(page_num)
-    que_id = page_object.object_list[0].id  # дописать проверку на наличие нулевого элемента
+    que_id = page_object.object_list[0].id
     ans1 = Answer.objects.filter(question_id=que_id)
-    ans = Answer.objects.filter(question__pk=que_id).values('answer_text', 'question__id').order_by('question_id')
-    test_result = 0
+    #ans = Answer.objects.filter(question__pk=que_id).values('answer_text', 'question__id').order_by('question_id')
     if request.method == 'POST':
         form = AnswersForm(request.POST)
         form.fields['answer_text'].choices = [(ans1[0].id, ans1[0]), (ans1[1].id, ans1[1]), (ans1[2].id, ans1[2])]
         if form.is_valid():
-            user_answer = form.save()
-            variant = Answer.objects.get(pk=user_answer)
-        if variant.result == True:
-            pass
+            form.save()
             if page_object.has_next():
                 return redirect(f'/test_group/{test_group_id}/{test_id}?page={page_object.next_page_number()}')
-            else:
-                return redirect('test_result')  # написать редирект на страницу с выводом результата теста
     else:
         form = AnswersForm()
         form.fields['answer_text'].choices = [(ans1[0].id, ans1[0]), (ans1[1].id, ans1[1]), (ans1[2].id, ans1[2])]
     context = {'page_obj': page_object,
                'form': form,
                'que': que,
-               'ans': ans,
                'test_group_id': test_group_id,
                'test_id': test_id,
                }
