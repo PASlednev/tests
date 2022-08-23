@@ -92,7 +92,7 @@ def show_testing(request, test_group_id, test_id):
     page_object = paginator.get_page(page_num)
     que_id = page_object.object_list[0].id
     ans1 = Answer.objects.filter(question_id=que_id)
-    #ans = Answer.objects.filter(question__pk=que_id).values('answer_text', 'question__id').order_by('question_id')
+    # ans = Answer.objects.filter(question__pk=que_id).values('answer_text', 'question__id').order_by('question_id')
     if request.method == 'POST':
         form = AnswersForm(request.POST)
         form.fields['answer_text'].choices = [(ans1[0].id, ans1[0]), (ans1[1].id, ans1[1]), (ans1[2].id, ans1[2])]
